@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2B0B3E44-6170-48C0-8D52-C777C855D4AC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>StudyForum.Db.EF</RootNamespace>
+    <AssemblyName>StudyForum.Db.EF</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="EntityConfigurations\FileConfiguration.cs" />
+    <Compile Include="EntityConfigurations\GroupConfiguration.cs" />
+    <Compile Include="EntityConfigurations\GroupSemesterConfiguration.cs" />
+    <Compile Include="EntityConfigurations\GroupSemesterToSubjectConfiguration.cs" />
+    <Compile Include="EntityConfigurations\MessageConfiguration.cs" />
+    <Compile Include="EntityConfigurations\MessageFileConfiguration.cs" />
+    <Compile Include="EntityConfigurations\RoleConfiguration.cs" />
+    <Compile Include="EntityConfigurations\SemesterConfiguration.cs" />
+    <Compile Include="EntityConfigurations\SubjectConfiguration.cs" />
+    <Compile Include="EntityConfigurations\ThemeConfiguration.cs" />
+    <Compile Include="EntityConfigurations\ThemeFileConfiguration.cs" />
+    <Compile Include="EntityConfigurations\UserConfiguration.cs" />
+    <Compile Include="EntityConfigurations\UserIdentityConfiguration.cs" />
+    <Compile Include="Migrations\201712031141466_Initial.cs" />
+    <Compile Include="Migrations\201712031141466_Initial.Designer.cs">
+      <DependentUpon>201712031141466_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712051023487_fluent-api update.cs" />
+    <Compile Include="Migrations\201712051023487_fluent-api update.Designer.cs">
+      <DependentUpon>201712051023487_fluent-api update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712101128361_Added field description to group.cs" />
+    <Compile Include="Migrations\201712101128361_Added field description to group.Designer.cs">
+      <DependentUpon>201712101128361_Added field description to group.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="mainpage.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201712031141466_Initial.resx">
+      <DependentUpon>201712031141466_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712051023487_fluent-api update.resx">
+      <DependentUpon>201712051023487_fluent-api update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712101128361_Added field description to group.resx">
+      <DependentUpon>201712101128361_Added field description to group.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\StudyForum.Entities\StudyForum.Entities.csproj">
+      <Project>{adf5ddb5-5a99-4927-a456-e73ed8626602}</Project>
+      <Name>StudyForum.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
