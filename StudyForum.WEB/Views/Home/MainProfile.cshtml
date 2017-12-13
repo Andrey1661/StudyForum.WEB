@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "MainProfile";
+}
+
+<div class="container-profile">
+    <img src="~/Content/Img/user.png" class="img-responsive img-thumbnail" alt="user">
+    <h4 style="margin-left: 10px;">Фамилия Имя Отчество</h4>
+    <h4 style="margin-left: 10px;">example#mail.ru</h4>
+    
+    <div class="row">
+        
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <h3>Мои темы:</h3>
+                <ol class="ball">
+                    @for (int i = 0; i < 10; i++)
+                    {
+                        <li><a href="#">Название темы @(i + 54646)</a></li>
+                    }
+                </ol>
+            </div>
+            <div class="col-md-offset-6">
+                <h3>Мои предметы:</h3>
+                <ol class="ball">
+                    @for (int i = 0; i < 15; i++)
+                    {
+                        <li><a href="#">Название предмета @(i + 54646)</a></li>
+                    }
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+

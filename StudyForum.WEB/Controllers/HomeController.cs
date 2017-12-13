@@ -8,19 +8,19 @@ namespace StudyForum.WEB.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult MainProfile()
         {
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Topic()
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Topics()
         {
             ViewBag.Message = "Your contact page.";
 

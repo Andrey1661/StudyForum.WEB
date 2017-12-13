@@ -12,5 +12,10 @@ namespace StudyForum.WEB.Controllers
         {
             return View();
         }
+
+        public ActionResult Register()
+        {
+            return View();
+        }
     }
 }
