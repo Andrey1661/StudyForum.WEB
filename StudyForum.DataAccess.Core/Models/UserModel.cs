@@ -14,6 +14,7 @@ namespace StudyForum.DataAccess.Core.Models
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string Patronymic { get; set; }
+        public RoleModel Role { get; set; }
         public bool AccountConfirmed { get; set; }
         public FileModel AvatarFile { get; set; }
     }

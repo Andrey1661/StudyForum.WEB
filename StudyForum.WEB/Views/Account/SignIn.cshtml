@@ -30,28 +30,5 @@
         <input type="submit" class="btn btn-default" value="Отправить"/>
     }
 </div>
-<div class="col-md-4 col-md-offset-2">
-    <h2>Зарегистрироваться</h2>
-
-    @using (Html.BeginForm("SignUp", "Account", FormMethod.Post))
-    {
-        <div class="form-group">
-            @Html.Label("Адрес электронной почты", new { @class = "control-label" })
-            @Html.TextBox("Email", null, new { @class = "form-control" })
-        </div>
-
-        <div class="form-group">
-            @Html.Label("Пароль", new { @class = "control-label" })
-            @Html.Password("Password", null, new { @class = "form-control" })
-        </div>
-
-        <div class="form-group">
-            @Html.Label("Повторите пароль", new { @class = "control-label" })
-            @Html.Password("Password", null, new { @class = "form-control" })
-        </div>
-
-        <input type="submit" class="btn btn-default" value="Зарегистрироваться" />
-    }
-</div>
 </body>
 </html>

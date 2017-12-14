@@ -23,10 +23,16 @@ namespace StudyForum.Entities
         /// </summary>  
         public string Title { get; set; }
 
+        public string Description { get; set; }
+
         /// <summary>
         /// Дата создания
         /// </summary>
         public DateTime CreationDate { get; set; }
+
+        public Guid SubjectId { get; set; }
+
+        public virtual GroupSemesterSubject Subject { get; set; }
 
         /// <summary>
         /// Внешний ключ на автора

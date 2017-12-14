@@ -21,21 +21,22 @@ namespace StudyForum.Db.EF
         {
             modelBuilder.Configurations.AddFromAssembly(typeof(ApplicationDbContext).Assembly);
 
+            Database.SetInitializer<ApplicationDbContext>(null);
             base.OnModelCreating(modelBuilder);
         }
 
-        public IDbSet<Group> Groups { get; set; }
-        public IDbSet<GroupSemester> GroupSemesters { get; set; }
-        public IDbSet<GroupSemesterSubject> GroupSemesterSubjects { get; set; }
-        public IDbSet<Message> Messages { get; set; }
-        public IDbSet<MessageFile> MessageFiles { get; set; }
-        public IDbSet<ThemeFile> ThemeFiles { get; set; }
-        public IDbSet<File> FileModels { get; set; }
-        public IDbSet<Theme> Themes { get; set; }
-        public IDbSet<Subject> Subject { get; set; }
-        public IDbSet<Semester> Semesters { get; set; }
-        public IDbSet<User> Users { get; set; }
-        public IDbSet<UserIdentity> Identities { get; set; }
-        public IDbSet<Role> Roles { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<GroupSemester> GroupSemesters { get; set; }
+        public DbSet<GroupSemesterSubject> GroupSemesterSubjects { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<MessageFile> MessageFiles { get; set; }
+        public DbSet<ThemeFile> ThemeFiles { get; set; }
+        public DbSet<File> FileModels { get; set; }
+        public DbSet<Theme> Themes { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Semester> Semesters { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserIdentity> Identities { get; set; }
+        public DbSet<Role> Roles { get; set; }
     }
 }

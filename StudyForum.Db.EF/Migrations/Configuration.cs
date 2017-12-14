@@ -1,15 +1,18 @@
-using System.Data.Entity.Migrations;
-
 namespace StudyForum.Db.EF.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
+
+    internal sealed class Configuration : DbMigrationsConfiguration<StudyForum.Db.EF.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(ApplicationDbContext context)
+        protected override void Seed(StudyForum.Db.EF.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

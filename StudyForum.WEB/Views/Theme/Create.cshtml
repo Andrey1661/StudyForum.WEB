@@ -1,0 +1,26 @@
+﻿@model StudyForum.WEB.ViewModels.CreateThemeViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateTheme</title>
+</head>
+<body>
+@using (Html.BeginForm("CreateTheme", "Theme"))
+{
+    @Html.HiddenFor(t => t.SubjectId)
+
+    <div>
+        @Html.TextBoxFor(t => t.Title)
+    </div>
+    <div>
+        @Html.TextAreaFor(t => t.Description)
+    </div>
+    <div>
+        <input type="submit"/>
+    </div>
+}
+</body>
+</html>

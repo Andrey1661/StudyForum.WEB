@@ -12,5 +12,6 @@ namespace StudyForum.DataAccess.Core.Models
         public Guid AuthorId { get; set; }
         public string Content { get; set; }
         public Guid ParentMessageId { get; set; }
+        public ICollection<FileModel> AttachedFiles { get; set; }
     }
 }

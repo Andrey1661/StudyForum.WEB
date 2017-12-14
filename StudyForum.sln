@@ -5,13 +5,19 @@ VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyForum.WEB", "StudyForum.WEB\StudyForum.WEB.csproj", "{087C5BB3-EC64-411F-8CCF-E031D03A772C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyForum.DataAccess", "StudyForum.DataAccess\StudyForum.DataAccess.csproj", "{44F2FED1-89DB-4625-BF78-2793FADE07A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyForum.DataAccess.EF", "StudyForum.DataAccess.EF\StudyForum.DataAccess.EF.csproj", "{44F2FED1-89DB-4625-BF78-2793FADE07A4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyForum.DataAccess.Core", "StudyForum.DataAccess.Core\StudyForum.DataAccess.Core.csproj", "{5056EC28-4F7F-4BE7-B1C7-BD4970769619}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyForum.Db.EF", "StudyForum.Db.EF\StudyForum.Db.EF.csproj", "{2B0B3E44-6170-48C0-8D52-C777C855D4AC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyForum.Entities", "StudyForum.Entities\StudyForum.Entities.csproj", "{ADF5DDB5-5A99-4927-A456-E73ED8626602}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyForum.DataAccess.EF.Tests", "StudyForum.DataAccess.EF.Tests\StudyForum.DataAccess.EF.Tests.csproj", "{83F66773-38ED-4114-8B9C-2664C66318D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicQueryFilter", "DynamicQueryFilter\DynamicQueryFilter.csproj", "{2CE050E3-8666-4FA9-8291-9CB998C23511}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicQueryFilter.Tests", "DynamicQueryFilter.Tests\DynamicQueryFilter.Tests.csproj", "{6DB5CFD6-4F13-41D7-A17B-E20CFC2A6845}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +45,18 @@ Global
 		{ADF5DDB5-5A99-4927-A456-E73ED8626602}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADF5DDB5-5A99-4927-A456-E73ED8626602}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADF5DDB5-5A99-4927-A456-E73ED8626602}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83F66773-38ED-4114-8B9C-2664C66318D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83F66773-38ED-4114-8B9C-2664C66318D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83F66773-38ED-4114-8B9C-2664C66318D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83F66773-38ED-4114-8B9C-2664C66318D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CE050E3-8666-4FA9-8291-9CB998C23511}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CE050E3-8666-4FA9-8291-9CB998C23511}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CE050E3-8666-4FA9-8291-9CB998C23511}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CE050E3-8666-4FA9-8291-9CB998C23511}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DB5CFD6-4F13-41D7-A17B-E20CFC2A6845}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DB5CFD6-4F13-41D7-A17B-E20CFC2A6845}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DB5CFD6-4F13-41D7-A17B-E20CFC2A6845}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DB5CFD6-4F13-41D7-A17B-E20CFC2A6845}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

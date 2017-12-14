@@ -40,10 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\Services\IFileRepository.cs" />
-    <Compile Include="Abstract\Services\IMessageRepository.cs" />
-    <Compile Include="Abstract\Services\IThemeRepository.cs" />
-    <Compile Include="Abstract\Services\IUserRepository.cs" />
+    <Compile Include="Abstract\Services\IFileService.cs" />
+    <Compile Include="Abstract\Services\IMessageService.cs" />
+    <Compile Include="Abstract\Services\IRoleService.cs" />
+    <Compile Include="Abstract\Services\ISubjectService.cs" />
+    <Compile Include="Abstract\Services\IThemeService.cs" />
+    <Compile Include="Abstract\Services\IUserSevice.cs" />
+    <Compile Include="Enviroment\Filters\FileFilter.cs" />
+    <Compile Include="Enviroment\Filters\MessageFilter.cs" />
     <Compile Include="Enviroment\Filters\ObjectFilterBase.cs" />
     <Compile Include="Enviroment\Filters\ThemeFilter.cs" />
     <Compile Include="Enviroment\Filters\UserFilter.cs" />
@@ -52,13 +56,12 @@
     <Compile Include="Models\CreateUserModel.cs" />
     <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\MessageModel.cs" />
+    <Compile Include="Models\RoleModel.cs" />
+    <Compile Include="Models\SubjectModel.cs" />
     <Compile Include="Models\ThemeModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Abstract\Commands\" />
-    <Folder Include="Abstract\Queries\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

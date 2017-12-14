@@ -29,8 +29,6 @@ namespace StudyForum.DataAccess.Core.Enviroment
 
         public int TotalItemCount { get; set; }
 
-        public int Offset => Page * PageSize;
-
         public int TotalPageCount
         {
             get

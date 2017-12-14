@@ -51,7 +51,7 @@
     <Compile Include="EntityConfigurations\FileConfiguration.cs" />
     <Compile Include="EntityConfigurations\GroupConfiguration.cs" />
     <Compile Include="EntityConfigurations\GroupSemesterConfiguration.cs" />
-    <Compile Include="EntityConfigurations\GroupSemesterToSubjectConfiguration.cs" />
+    <Compile Include="EntityConfigurations\GroupSemesterSubjectConfiguration.cs" />
     <Compile Include="EntityConfigurations\MessageConfiguration.cs" />
     <Compile Include="EntityConfigurations\MessageFileConfiguration.cs" />
     <Compile Include="EntityConfigurations\RoleConfiguration.cs" />
@@ -61,17 +61,9 @@
     <Compile Include="EntityConfigurations\ThemeFileConfiguration.cs" />
     <Compile Include="EntityConfigurations\UserConfiguration.cs" />
     <Compile Include="EntityConfigurations\UserIdentityConfiguration.cs" />
-    <Compile Include="Migrations\201712031141466_Initial.cs" />
-    <Compile Include="Migrations\201712031141466_Initial.Designer.cs">
-      <DependentUpon>201712031141466_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712051023487_fluent-api update.cs" />
-    <Compile Include="Migrations\201712051023487_fluent-api update.Designer.cs">
-      <DependentUpon>201712051023487_fluent-api update.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712101128361_Added field description to group.cs" />
-    <Compile Include="Migrations\201712101128361_Added field description to group.Designer.cs">
-      <DependentUpon>201712101128361_Added field description to group.cs</DependentUpon>
+    <Compile Include="Migrations\201712121302281_Initial.cs" />
+    <Compile Include="Migrations\201712121302281_Initial.Designer.cs">
+      <DependentUpon>201712121302281_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,17 +76,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712031141466_Initial.resx">
-      <DependentUpon>201712031141466_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712051023487_fluent-api update.resx">
-      <DependentUpon>201712051023487_fluent-api update.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712101128361_Added field description to group.resx">
-      <DependentUpon>201712101128361_Added field description to group.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712121302281_Initial.resx">
+      <DependentUpon>201712121302281_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\StudyForum.Entities\StudyForum.Entities.csproj">
       <Project>{adf5ddb5-5a99-4927-a456-e73ed8626602}</Project>

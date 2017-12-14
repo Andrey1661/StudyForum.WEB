@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StudyForum.DataAccess.Core.Enviroment.Filters
 {
-    public class UserFilter
+    public class UserFilter : ObjectFilterBase
     {
         public Guid? GroupId { get; set; }
         public Guid? RoleId { get; set; }

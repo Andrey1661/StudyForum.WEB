@@ -22,5 +22,7 @@ namespace StudyForum.DataAccess.Core.Enviroment
             get { return _pageSize; }
             set { _pageSize = value >= 0 ? value : 0; }
         }
+
+        public int Offset => Page * PageSize;
     }
 }

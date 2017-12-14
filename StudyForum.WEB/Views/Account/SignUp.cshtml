@@ -1,0 +1,25 @@
+﻿@{
+    Layout = "../Shared/_LayoutMin.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+</head>
+<body>
+@using (Html.BeginForm("SignUp", "Account", FormMethod.Post))
+{
+    <div>
+        <input type="text" value="user@test.ru", name="email"/>
+        <input type="password" value="user@test.ru" , name="password"/>
+        <input type="text" value="Иванов" , name="secondName"/>
+        <input type="text" value="Иван" , name="firstName"/>
+        <input type="text" value="Иванович" , name="patronymic"/>
+        <input type="submit"/>
+    </div>
+}
+</body>
+</html>
