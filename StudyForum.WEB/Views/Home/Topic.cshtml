@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Topic";
+}
+
+<div class="container-topic">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="list-group">
+                <li class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4><a href="#">Название темы</a></h4>
+                    </div>
+                    <div class="panel-body">
+                        <span>Описание темы.Описание темы.Описание темы.Описание темы.Описание темы.</span>
+                    </div>
+                    <div class="panel-footer">
+                        <a href="#" class="btn btn-success pull-right">Комментировать</a>
+                        <h6>Автор темы</h6>
+                        <h6>Последнее обновление</h6>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <ul class="list-group">
+                    @for (int i = 0; i < 15; i++)
+                    {
+                        <li class="list-group-item panel">
+                            <div class="panel panel-title">
+                                Текст комментарияТекст комментарияТекст комментарияТекст комментария @i
+                            </div>
+                            
+                            <div class="panel-footer">
+                                <a href="#">Автор комментария</a>
+                                <a href="#" class="btn btn-success btn-sm pull-right">Ответить</a>
+                            </div>
+
+                        </li>
+                    }
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</div>

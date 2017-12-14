@@ -1,0 +1,11 @@
+﻿body {
+    background: url(../Content/Img/bg.png) repeat;
+}
+
+.signin-contaner {
+    margin-top: 30px;
+}
+
+.signin-contaner .row {
+    margin-top: 20px !important;
+}

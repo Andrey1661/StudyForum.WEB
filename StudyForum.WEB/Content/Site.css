@@ -1,6 +1,28 @@
 ﻿
+@font-face {
+    font-family: 'LogoMain';
+    src: url(../fonts/logo-font.ttf);
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     padding-top: 50px;
+}
+
+.fill-background {
+    background: url(../Content/Img/bg.png) repeat;
+}
+
+.navbar-logo {
+    font-family: LogoMain;
+    font-size: 32px !important;
+}
+
+.navbar-avatar {
+    max-height: 40%;
+    max-width: 40%;
+    margin-top: 4px;
 }
 
 .navbar {
@@ -10,14 +32,13 @@ body {
     margin-bottom: 0 !important;
 }
 
-.navbar a {
-    color: black;
-}
+    .navbar a {
+        color: black;
+    }
 
 .nav > li > a:hover,
-.nav > li > a:focus{
-    background-color: initial;
-    text-decoration: underline;
+.nav > li > a:focus {
+    background-color: initial !important;
 }
 
 .nav > li > a:active {
@@ -26,6 +47,95 @@ body {
 
 .form-control {
     max-width: 300px;
+}
+
+.container-profile {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
+
+.profile-avatar {
+}
+
+.container-topics {
+    margin-left: 5px;
+    margin-right: 5px;
+    border: black;
+    border-width: 1px;
+    margin-top: 30px;
+}
+
+.topics-left-td {
+    
+}
+
+.topics-right-td {
+    
+}
+
+.container-topic {
+    margin-top: 30px;
+}
+
+.container-topic ul {
+    list-style-type: none;
+}
+
+.topics-tr {
+    padding: 10px;
+    border-width: 1px;
+    border-color: black;
+}
+
+.ball {
+    list-style: none;
+    margin: 0;
+}
+
+.ball a {
+    width: 100%;
+    color: rgb(0, 105, 92);
+    text-decoration: none;
+    display: inline-block;
+    padding-left: 25px;
+    height: 44px;
+    line-height: 44px;
+    font-size: 20px;
+    position: relative;
+    transition: .3s linear;
+}
+
+.ball a:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgb(0, 105, 92);
+    position: absolute;
+    left: -30px;
+    top: 7px;
+}
+
+.ball li {
+    position: relative;
+}
+
+    .ball li:before {
+        content: "";
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: aliceblue;
+        position: absolute;
+        top: 30px;
+        left: -8px;
+        z-index: 2;
+        transition: .4s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+
+.ball li:hover:before {
+    left: -20px;
 }
 
 /*.navbar {
