@@ -24,7 +24,10 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><img src="~/Content/Img/user.png" class="img-responsive img-thumbnail navbar-avatar pull-right" alt="user"></li>
                     <li class="dropdown">
-                        <a href="#" style="font-size: 24px !important;" class="navbar-logo dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Имя Фамилия<span class="caret"></span></a>
+                        @(User.Identity.IsAuthenticated ? 
+                            Html.ActionLink(User.Identity.Name, "MainProfile", "Home", new {style = "font-size: 24px !important;", @class = "navbar-logo dropdown-toggle ", datatoggle = "dropdown", role = "button", ariahaspopup = "true", ariaexpanded = "false"}) : 
+                            Html.ActionLink("Войти", "SignIn", "Account"))
+                        @*<a href="#" style="font-size: 24px !important;" class="navbar-logo dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Имя Фамилия<span class="caret"></span></a>*@
                         <ul class="dropdown-menu">
                             <li><a href="#">Изменить аватар</a></li>
                             <li><a href="#">Изменить группу</a></li>
@@ -38,9 +41,12 @@
                 
 
                 <form class="navbar-form navbar-right">
-                    <div class="input-group">
-                        <button class="btn btn-success">Создать тему</button>
-                    </div>
+                    @*@if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="input-group">
+                            @Html.ActionLink("Создать тему", "Create", "Theme", new {@class = "btn btn-success"})
+                        </div>
+                    }*@
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Поиск по темам">
                         <div class="input-group-btn">

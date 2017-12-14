@@ -1,4 +1,5 @@
 ﻿@{
+    Layout = "~/Views/Shared/_LayoutMin.cshtml";
     ViewBag.Title = "SignIn";
 }
 
@@ -28,8 +29,6 @@
             @Html.Password("Password", null, new {@class = "form-control"})
         </div>
 
-
-
         <div class="form-group">
             @Html.CheckBox("RememberMe", null)
             @Html.Label("Запомнить меня")
@@ -44,7 +43,7 @@
         </div>
         
         <div class="col-md-12">
-            <a href="">Зарегистрироваться</a>
+            @Html.ActionLink("Зарегистрироваться", "SignUp")
         </div>
     </div> 
 </div>

@@ -20,8 +20,8 @@ body {
 }
 
 .navbar-avatar {
-    max-height: 40%;
-    max-width: 40%;
+    max-height: 40% !important;
+    max-width: 40% !important;
     margin-top: 4px;
 }
 

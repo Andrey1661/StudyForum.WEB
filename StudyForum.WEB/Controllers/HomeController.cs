@@ -8,6 +8,11 @@ namespace StudyForum.WEB.Controllers
 {
     public class HomeController : Controller
     {
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         public ActionResult MainProfile()
         {
             return View();
