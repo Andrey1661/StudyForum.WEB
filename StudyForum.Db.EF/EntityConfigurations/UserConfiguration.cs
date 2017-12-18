@@ -28,8 +28,8 @@ namespace StudyForum.Db.EF.EntityConfigurations
                 .HasForeignKey(t => t.GroupId)
                 .WillCascadeOnDelete(false);
             HasOptional(t => t.Avatar)
-                .WithOptionalPrincipal()
-                .Map(t => t.MapKey("AvatarId"))
+                .WithMany()
+                .HasForeignKey(t => t.AvatarId)
                 .WillCascadeOnDelete(false);
             HasMany(t => t.Themes)
                 .WithRequired(t => t.Author)

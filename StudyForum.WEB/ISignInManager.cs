@@ -8,7 +8,7 @@ namespace StudyForum.WEB
 {
     public interface ISignInManager
     {
-        void SignIn(UserModel user);
+        void SignIn(UserModel user, bool isPersistent);
         void SignOut();
     }
 }

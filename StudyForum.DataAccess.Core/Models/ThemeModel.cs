@@ -10,7 +10,8 @@ namespace StudyForum.DataAccess.Core.Models
     {
         public Guid Id { get; set; }
         public Guid SubjectId { get; set; }
-        public Guid AuthorId { get; set; }
+        public DateTime CreationDate { get; set; }
+        public AuthorModel Author { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
     }

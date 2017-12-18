@@ -89,6 +89,7 @@ namespace StudyForum.WEB.App_Start
             kernel.Bind<IThemeService>().To<ThemeService>();
             kernel.Bind<IMessageService>().To<MessageService>();
             kernel.Bind<ISubjectService>().To<SubjectService>();
+            kernel.Bind<ISemesterService>().To<SemesterService>();
 
             kernel.Bind<ISignInManager>().To<SignInManager>();
             kernel.Bind<IAuthenticationManager>().ToMethod(ctx =>

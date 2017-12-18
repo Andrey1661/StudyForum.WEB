@@ -14,24 +14,31 @@ namespace StudyForum.DataAccess.Enviroment
         public AutomapperDataAccessModule()
         {
             CreateMap<User, UserModel>()
-                .ForMember(t => t.Email, conf => conf.MapFrom(t => t.Identity.Email))
-                .ForMember(t => t.Role, conf => conf.MapFrom(t => t.Identity.Role))
-                .ForMember(t => t.RegistrationDate, conf => conf.MapFrom(t => t.Identity.RegistrationDate));
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Identity.Email))
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Identity.Role))
+                .ForMember(dest => dest.RegistrationDate, opt => opt.MapFrom(src => src.Identity.RegistrationDate));
 
             CreateMap<CreateUserModel, User>()
-                .ForMember(t => t.Identity,
-                    conf => conf.MapFrom(t => new UserIdentity {Email = t.Email, PasswordHash = t.Password}));
+                .ForMember(dest => dest.Identity,
+                    opt => opt.MapFrom(t => new UserIdentity {Email = t.Email, PasswordHash = t.Password}));
 
             CreateMap<Theme, ThemeModel>();
 
             CreateMap<MessageModel, Message>();
             CreateMap<Message, MessageModel>()
-                .ForMember(t => t.AttachedFiles, conf => conf.MapFrom(t => t.Files.Select(f => f.File)));
+                .ForMember(dest => dest.AttachedFiles, opt => opt.MapFrom(src => src.Files.Select(f => f.File)));
 
             CreateMap<File, FileModel>();
             CreateMap<FileModel, File>();
 
             CreateMap<Subject, SubjectModel>();
+            CreateMap<Semester, SemesterModel>();
+
+            CreateMap<Theme, ThemeModel>();
+            CreateMap<User, AuthorModel>()
+                .ForMember(dest => dest.FullName,
+                    opt => opt.MapFrom(src => $"{src.SecondName} {src.FirstName} {src.Patronymic}".Trim()))
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Identity.Role));
         }
     }
 }

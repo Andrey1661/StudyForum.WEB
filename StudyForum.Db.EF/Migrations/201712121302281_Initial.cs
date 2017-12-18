@@ -8,17 +8,14 @@ namespace StudyForum.Db.EF.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Files",
-                c => new
+                    "dbo.Files",
+                    c => new
                     {
                         Id = c.Guid(nullable: false),
                         PhysicalPath = c.String(nullable: false, maxLength: 200),
-                        IsIndependent = c.Boolean(nullable: false),
-                        AvatarId = c.Guid(),
+                        IsIndependent = c.Boolean(nullable: false)
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Users", t => t.AvatarId)
-                .Index(t => t.AvatarId);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.MessageFiles",

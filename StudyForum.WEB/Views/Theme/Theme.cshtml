@@ -1,0 +1,64 @@
+﻿@model StudyForum.WEB.ViewModels.ThemeViewModel
+
+@{
+    ViewBag.Title = "Topic";
+}
+
+<div class="container-topic">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="list-group">
+                <li class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4><a href="#">@Model.Title</a></h4>
+                    </div>
+                    <div class="panel-body">
+                        <span>@Model.Description</span>
+                    </div>
+                    <div class="panel-footer">
+                        <h6>@Model.CreationDate.ToString("g")</h6>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <ul class="list-group">
+                    @foreach(var message in Model.Messages)
+                    {
+                        <li class="list-group-item panel">
+                            <div class="panel panel-title">
+                                @message.Content
+                            </div>
+                            
+                            <div class="panel-footer">
+                                <a href="#">@message.AuthorName</a>
+                                <span>@message.CreationDate.ToString("g")</span>
+                                @*<button id=@message.Id class="btn btn-success btn-sm pull-right">Ответить</button>*@
+                            </div>
+
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("Create", "Message", FormMethod.Post))
+            {
+                @Html.Hidden("ThemeId", Model.Id)
+
+                <div class="form-group">
+                    @Html.TextArea("Content", new {@class = "form-control", style = "width: 50%; height: 100px; max-width: inherit; resize: none;"})
+                </div>
+                <input type="submit" value="Добавить комментарий", class="btn btn-success"/>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+﻿@model StudyForum.WEB.ViewModels.ProfileViewModel
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+<div class="container-profile">
+    <img src="~/Content/Img/user.png" class="img-responsive img-thumbnail" alt="user">
+    <h4 style="margin-left: 10px;">@Model.FullName</h4>
+    <h4 style="margin-left: 10px;">@Model.Email</h4>
+    @Html.ActionLink("Выйти", "SignOut", "Account")
+
+    <div class="row">
+        
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <h3>Мои темы:</h3>
+                <ol class="ball">
+                    @foreach (var theme in Model.Themes)
+                    {
+                        <li><a href="#">@theme.Title</a></li>
+                    }
+                </ol>
+            </div>
+            <div class="col-md-6">
+                <h3>Мои предметы:</h3>
+                <ol class="ball">
+                    @foreach (var subject in Model.Subjects)
+                    {
+                        <li>@Html.ActionLink(subject.Name, "Themes", "Theme", new {subjectId = subject.Id}, null)</li>
+                    }
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+

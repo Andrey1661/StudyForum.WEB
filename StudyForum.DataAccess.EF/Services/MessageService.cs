@@ -22,7 +22,7 @@ namespace StudyForum.DataAccess.Services
         {
         }
 
-        public async Task CreateMessageAsync(MessageModel model)
+        public async Task<Guid> CreateMessageAsync(MessageModel model)
         {
             var message = Mapper.Map<MessageModel, Message>(model);
             message.Id = Guid.NewGuid();
@@ -30,11 +30,15 @@ namespace StudyForum.DataAccess.Services
 
             Context.Messages.Add(message);
             await Context.SaveChangesAsync();
+            return message.Id;
         }
 
         public async Task<MessageModel> GetMessageAsync(Guid messageId)
         {
-            var message = await Context.Messages.Include(m => m.Files.Select(f => f.File)).FirstOrDefaultAsync();
+            var message = await Context.Messages
+                .Include(m => m.Author)
+                .Include(m => m.Files.Select(f => f.File))
+                .FirstOrDefaultAsync();
             return message == null ? null : Mapper.Map<Message, MessageModel>(message);
         }
 
@@ -46,7 +50,7 @@ namespace StudyForum.DataAccess.Services
 
         public async Task<PagedList<MessageModel>> GetChildMessagesAsync(Guid parentMessageId, ListOptions listOptions)
         {
-            var query = Context.Messages.Include(m => m.Files).AsQueryable();
+            var query = Context.Messages.Include(m => m.Author).Include(m => m.Files).AsQueryable();
             var list = new PagedList<MessageModel>();
             list.TotalItemCount = await Context.Messages.CountAsync(m => m.ParentMessageId == parentMessageId);
 
@@ -66,9 +70,14 @@ namespace StudyForum.DataAccess.Services
             return list;
         }
 
-        public async Task<PagedList<MessageModel>> GetMessagesAsync(ListOptions listOptions, MessageFilter filter)
+        public Task<PagedList<MessageModel>> GetMessagesAsync(ListOptions listOptions)
         {
-            var query = Context.Messages.Include(m => m.Files.Select(f => f.File)).AsQueryable();
+            return GetMessagesAsync(null, listOptions);
+        }
+
+        public async Task<PagedList<MessageModel>> GetMessagesAsync(MessageFilter filter, ListOptions listOptions)
+        {
+            var query = Context.Messages.Include(m => m.Author).Include(m => m.Files.Select(f => f.File)).AsQueryable();
             var list = new PagedList<MessageModel>();
             Expression<Func<Message, bool>> predicate = null;
 
@@ -109,9 +118,9 @@ namespace StudyForum.DataAccess.Services
 
         public async Task<PagedList<MessageModel>> GetThemeMessagesAsync(Guid themeId, ListOptions listOptions)
         {
-            var query = Context.Messages.Include(m => m.Files).AsQueryable();
+            var query = Context.Messages.Include(m => m.Author).Include(m => m.Files).AsQueryable();
             var list = new PagedList<MessageModel>();
-            list.TotalItemCount = await Context.Messages.CountAsync(m => m.ParentMessageId == themeId);
+            list.TotalItemCount = await Context.Messages.CountAsync(m => m.ThemeId == themeId);
 
             if (list.TotalItemCount == 0) return list;
 

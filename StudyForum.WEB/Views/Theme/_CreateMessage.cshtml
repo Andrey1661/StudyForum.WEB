@@ -1,0 +1,12 @@
+﻿<div class="col-md-12">
+    @using (Html.BeginForm("Create", "Message", FormMethod.Post))
+    {
+        @Html.Hidden("ThemeId", (Guid)ViewData["themeId"])
+        @Html.Hidden("ParentThemeId", (Guid)ViewData["themeId"])
+
+        <div class="form-group">
+            @Html.TextArea("Content", new {@class = "form-control", style = "width: 50%; height: 100px; max-width: inherit; resize: none;"})
+        </div>
+        <input type="submit" value="Добавить комментарий", class="btn btn-success"/>
+    }
+</div>

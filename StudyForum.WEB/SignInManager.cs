@@ -19,7 +19,7 @@ namespace StudyForum.WEB
             Manager = manager;
         }
 
-        public void SignIn(UserModel user)
+        public void SignIn(UserModel user, bool isPersistent)
         {
             var claims = new List<Claim>
             {
@@ -29,7 +29,7 @@ namespace StudyForum.WEB
             };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationType);
-            Manager.SignIn(identity);
+            Manager.SignIn(new AuthenticationProperties {IsPersistent = isPersistent}, identity);
         }
 
         public void SignOut()

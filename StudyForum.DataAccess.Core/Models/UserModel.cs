@@ -9,6 +9,7 @@ namespace StudyForum.DataAccess.Core.Models
     public class UserModel
     {
         public Guid Id { get; set; }
+        public Guid? GroupId { get; set; }
         public string Email { get; set; }
         public DateTime RegistrationDate { get; set; }
         public string FirstName { get; set; }

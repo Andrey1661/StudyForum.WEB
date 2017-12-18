@@ -21,11 +21,12 @@ namespace StudyForum.DataAccess.Services
         {
         }
 
-        public async Task CreateThemeAsync(Guid subjectId, Guid authorId, string title, string description)
+        public async Task<Guid> CreateThemeAsync(Guid subjectId, Guid authorId, string title, string description = null)
         {
             var theme = new Theme
             {
                 Id = Guid.NewGuid(),
+                CreationDate = DateTime.Now,
                 AuthorId = authorId,
                 Title = title,
                 Description = description,
@@ -34,6 +35,7 @@ namespace StudyForum.DataAccess.Services
 
             Context.Themes.Add(theme);
             await Context.SaveChangesAsync();
+            return theme.Id;
         }
 
         public async Task UpdateThemeAuthorAsync(Guid themeId, Guid authorId)
@@ -61,7 +63,7 @@ namespace StudyForum.DataAccess.Services
             var storedTheme = await Context.Themes.FindAsync(theme.Id);
             if (storedTheme == null) return;
 
-            storedTheme.AuthorId = theme.AuthorId;
+            storedTheme.AuthorId = theme.Author.Id;
             storedTheme.SubjectId = theme.SubjectId;
             storedTheme.Title = theme.Title;
             storedTheme.Description = theme.Description;
@@ -72,18 +74,35 @@ namespace StudyForum.DataAccess.Services
 
         public async Task<ThemeModel> GetThemeAsync(Guid themeId)
         {
-            var theme = await Context.Themes.FindAsync(themeId);
+            var theme = await Context.Themes.Include(t => t.Author).FirstOrDefaultAsync(t => t.Id == themeId);
             return theme == null ? null : Mapper.Map<Theme, ThemeModel>(theme);
         }
 
-        public async Task<PagedList<ThemeModel>> GetThemesAsync(Guid subjectId, ListOptions listOptions)
+        public async Task<PagedList<ThemeModel>> GetUserThemesAsync(Guid userId, ListOptions listOptions = null)
         {
             var themes = Context.Themes.AsQueryable();
             var result = new PagedList<ThemeModel>();
 
             if (listOptions != null)
             {
-                themes = themes.Skip(listOptions.Offset).Take(listOptions.PageSize);
+                themes = themes.OrderBy(t => t.CreationDate).Skip(listOptions.Offset).Take(listOptions.PageSize);
+                result.Page = listOptions.Page;
+                result.PageSize = listOptions.PageSize;
+            }
+
+            var themeList = await themes.Where(t => t.AuthorId == userId).ToListAsync();
+            result.AddRange(Mapper.Map<IEnumerable<Theme>, IEnumerable<ThemeModel>>(themeList));
+            return result;
+        }
+
+        public async Task<PagedList<ThemeModel>> GetThemesForSubjectAsync(Guid subjectId, ListOptions listOptions)
+        {
+            var themes = Context.Themes.AsQueryable();
+            var result = new PagedList<ThemeModel>();
+
+            if (listOptions != null)
+            {
+                themes = themes.OrderBy(t => t.CreationDate).Skip(listOptions.Offset).Take(listOptions.PageSize);
                 result.Page = listOptions.Page;
                 result.PageSize = listOptions.PageSize;
             }
@@ -93,7 +112,12 @@ namespace StudyForum.DataAccess.Services
             return result;
         }
 
-        public async Task<PagedList<ThemeModel>> GetThemesAsync(ListOptions listOptions, ThemeFilter filter)
+        public Task<PagedList<ThemeModel>> GetThemesAsync(ListOptions listOptions = null)
+        {
+            return GetThemesAsync(null, listOptions);
+        }
+
+        public async Task<PagedList<ThemeModel>> GetThemesAsync(ThemeFilter filter, ListOptions listOptions)
         {
             var themes = Context.Themes.AsQueryable();
 
@@ -113,7 +137,7 @@ namespace StudyForum.DataAccess.Services
 
             if (listOptions != null)
             {
-                themes = themes.Skip(listOptions.Offset).Take(listOptions.PageSize);
+                themes = themes.OrderBy(t => t.CreationDate).Skip(listOptions.Offset).Take(listOptions.PageSize);
                 result.Page = listOptions.Page;
                 result.PageSize = listOptions.PageSize;
             }

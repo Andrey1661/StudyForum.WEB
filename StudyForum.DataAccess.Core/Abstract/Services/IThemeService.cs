@@ -8,12 +8,14 @@ namespace StudyForum.DataAccess.Core.Abstract.Services
 {
     public interface IThemeService
     {
-        Task CreateThemeAsync(Guid subjectId, Guid authorId, string title, string description = null);
+        Task<Guid> CreateThemeAsync(Guid subjectId, Guid authorId, string title, string description = null);
         Task UpdateThemeAuthorAsync(Guid themeId, Guid authorId);
         Task UpdateThemeSubjectAsync(Guid themeId, Guid subjectId);
         Task UpdateThemeAsync(ThemeModel theme);
         Task<ThemeModel> GetThemeAsync(Guid themeId);
-        Task<PagedList<ThemeModel>> GetThemesAsync(Guid subjectId, ListOptions listOptions = null);
-        Task<PagedList<ThemeModel>> GetThemesAsync(ListOptions listOptions, ThemeFilter filter);
+        Task<PagedList<ThemeModel>> GetUserThemesAsync(Guid userId, ListOptions listOptions = null);
+        Task<PagedList<ThemeModel>> GetThemesForSubjectAsync(Guid subjectId, ListOptions listOptions = null);
+        Task<PagedList<ThemeModel>> GetThemesAsync(ListOptions listOptions = null);
+        Task<PagedList<ThemeModel>> GetThemesAsync(ThemeFilter filter, ListOptions listOptions = null);
     }
 }

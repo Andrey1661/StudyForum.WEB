@@ -1,4 +1,7 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Reflection;
 using StudyForum.Entities;
 
@@ -38,5 +41,12 @@ namespace StudyForum.Db.EF
         public DbSet<User> Users { get; set; }
         public DbSet<UserIdentity> Identities { get; set; }
         public DbSet<Role> Roles { get; set; }
+
+        public DbSqlQuery<Subject> SelectSubjectByGroupAndSemester(Guid groupId, Guid semesterId)
+        {
+            return Subjects.SqlQuery("SelectSubjectsBySemesterAndGroup @groupId, @semesterId", 
+                new SqlParameter("groupId", groupId),
+                new SqlParameter("semesterId", semesterId));
+        }
     }
 }

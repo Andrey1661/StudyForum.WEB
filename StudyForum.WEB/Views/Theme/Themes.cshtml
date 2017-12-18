@@ -1,13 +1,37 @@
-﻿
-<!DOCTYPE html>
+﻿@model ICollection<StudyForum.WEB.ViewModels.ThemeViewModel>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Themes</title>
-</head>
-<body>
-    <div> 
+@{
+    ViewBag.Title = "Topics";
+}
+<div class="container-topics">
+    <div class="row">
+        <div class="col-md-12">
+            <span class="navbar-logo" style="font-size: 16px;">Список тем по предмету</span>
+            <br/>
+        </div>
     </div>
-</body>
-</html>
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="ball">
+                @foreach(var theme in Model)
+                {
+                    <li class="panel panel-info">
+                        <div class="panel-heading">
+                            <h4>@Html.ActionLink(theme.Title, "Theme", new {themeId = theme.Id})</h4>
+                        </div>
+                        <div class="panel-body">                            
+                            <span>@theme.Description</span>
+                        </div>                     
+                        <div class="panel-footer">
+                            <h6>Автор темы</h6>
+                            <h6>@theme.CreationDate</h6>
+                        </div>
+                    </li>
+                }
+            </ol>
+            <div>
+                @Html.ActionLink("Создать тему", "Create", "Theme", new { subjectId = (Guid)ViewBag.SubjectId}, new {@class = "btn btn-success"})
+            </div>
+        </div>
+    </div>
+</div>

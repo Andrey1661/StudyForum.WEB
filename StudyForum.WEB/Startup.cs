@@ -15,6 +15,7 @@ namespace StudyForum.WEB
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 LoginPath = new PathString("/Account/SignIn"),
+                ReturnUrlParameter = "returnUrl",
                 AuthenticationType = CookieAuthenticationDefaults.AuthenticationType
             });
         }

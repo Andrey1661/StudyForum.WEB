@@ -24,12 +24,15 @@ namespace StudyForum.WEB.Controllers
             SignInManager = signInManager;
         }
 
-        public ActionResult SignIn()
+        [AllowAnonymous]
+        public ActionResult SignIn(string returnUrl = null)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult> SignIn(SignInViewModel model)
         {
             var user = await UserService.GetUserAsync(model.Email, model.Password);
@@ -40,7 +43,18 @@ namespace StudyForum.WEB.Controllers
                 return View(model);
             }
 
-            SignInManager.SignIn(user);
+            SignInManager.SignIn(user, model.IsPersistent);
+
+            if (!string.IsNullOrEmpty(model.ReturnUrl))
+                return Redirect(model.ReturnUrl);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult SignOut()
+        {
+            SignInManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
 
@@ -52,6 +66,11 @@ namespace StudyForum.WEB.Controllers
         [HttpPost]
         public async Task<ActionResult> SignUp(RegisterViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             await UserService.CreateUserAsync(Mapper.Map<RegisterViewModel, CreateUserModel>(model));
             return RedirectToAction("Index", "Home");
         }

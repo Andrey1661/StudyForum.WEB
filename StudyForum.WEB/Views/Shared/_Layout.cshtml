@@ -25,7 +25,7 @@
                     <li><img src="~/Content/Img/user.png" class="img-responsive img-thumbnail navbar-avatar pull-right" alt="user"></li>
                     <li class="dropdown">
                         @(User.Identity.IsAuthenticated ? 
-                            Html.ActionLink(User.Identity.Name, "MainProfile", "Home", new {style = "font-size: 24px !important;", @class = "navbar-logo dropdown-toggle ", datatoggle = "dropdown", role = "button", ariahaspopup = "true", ariaexpanded = "false"}) : 
+                            Html.ActionLink(User.Identity.Name, "Index", "Profile", null, new {style = "font-size: 24px !important;", @class = "navbar-logo dropdown-toggle ", datatoggle = "dropdown", role = "button", ariahaspopup = "true", ariaexpanded = "false"}) : 
                             Html.ActionLink("Войти", "SignIn", "Account"))
                         @*<a href="#" style="font-size: 24px !important;" class="navbar-logo dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Имя Фамилия<span class="caret"></span></a>*@
                         <ul class="dropdown-menu">

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -27,18 +29,23 @@ namespace StudyForum.DataAccess.Services
 
         public async Task<PagedList<SubjectModel>> GetSubjectsAsync(Guid groupId, Guid semesterId, ListOptions listOptions)
         {
-            var query = Context.GroupSemesters.Include(t => t.Subjects.Select(s => s.Subject))
-                .Where(t => t.GroupId == groupId && t.SemesterId == semesterId)
-                .SelectMany(t => t.Subjects, (gs, gss) => gss.Subject);
+            var query = Context.SelectSubjectByGroupAndSemester(groupId, semesterId);
+
+            //var query = from subject in Context.Subjects
+            //    join gss in Context.GroupSemesterSubjects on subject.Id equals gss.SubjectId
+            //    join gs in Context.GroupSemesters on gss.GroupSemesterId equals gs.Id
+            //    where gs.GroupId == groupId && gs.SemesterId == semesterId
+            //    orderby subject.Name
+            //    select new Subject {Id = gss.Id, Name = subject.Name};
 
             var result = new PagedList<SubjectModel>();
 
-            if (listOptions != null)
-            {
-                query = query.Skip(listOptions.Offset).Take(listOptions.PageSize);
-                result.Page = listOptions.Page;
-                result.PageSize = listOptions.PageSize;
-            }
+            //if (listOptions != null)
+            //{
+            //    query = query.Skip(listOptions.Offset).Take(listOptions.PageSize);
+            //    result.Page = listOptions.Page;
+            //    result.PageSize = listOptions.PageSize;
+            //}
 
             var subjects = await query.ToListAsync();
             result.AddRange(Mapper.Map<IEnumerable<Subject>, IEnumerable<SubjectModel>>(subjects));

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using StudyForum.DataAccess.Core.Abstract.Services;
+using StudyForum.DataAccess.Core.Models;
 using StudyForum.WEB.Utils;
 using StudyForum.WEB.ViewModels;
 
@@ -13,16 +15,35 @@ namespace StudyForum.WEB.Controllers
     public class ThemeController : Controller
     {
         private IThemeService ThemeService { get; }
+        private IMessageService MessageService { get; }
+        private IMapper Mapper { get; set; }
 
-        public ThemeController(IThemeService themeService)
+        public ThemeController(IThemeService themeService, IMessageService messageService, IMapper mapper)
         {
             ThemeService = themeService;
+            MessageService = messageService;
+            Mapper = mapper;
         }
 
+        [HttpGet]
+        public async Task<ActionResult> Theme(Guid themeId)
+        {
+            var theme = await ThemeService.GetThemeAsync(themeId);
+            var messages = await MessageService.GetThemeMessagesAsync(themeId);
+
+            var model = Mapper.Map<ThemeModel, ThemeViewModel>(theme);
+            model.Messages = Mapper.Map<ICollection<MessageModel>, ICollection<MessageViewModel>>(messages);
+
+            return View(model);
+        }
+
+        [HttpGet]
         public async Task<ActionResult> Themes(Guid subjectId)
         {
-            var themes = await ThemeService.GetThemesAsync(subjectId);
-            var model = themes.Select(t => new ThemeViewModel {Title = t.Title, Description = t.Description});
+            ViewBag.SubjectId = subjectId;
+
+            var themes = await ThemeService.GetThemesForSubjectAsync(subjectId);
+            var model = Mapper.Map<ICollection<ThemeModel>, ICollection<ThemeViewModel>>(themes);
 
             return View(model);
         }
@@ -36,10 +57,11 @@ namespace StudyForum.WEB.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult> CreateTheme(CreateThemeViewModel model)
+        public async Task<ActionResult> Create(CreateThemeViewModel model)
         {
-            await ThemeService.CreateThemeAsync(model.SubjectId, User.GetId(), model.Title, model.Description);
-            return RedirectToAction("Themes", new {subjectId = model.SubjectId});
+            var themeId =
+                await ThemeService.CreateThemeAsync(model.SubjectId, User.GetId(), model.Title, model.Description);
+            return RedirectToAction("Theme", new {themeId});
         }
     }
 }
