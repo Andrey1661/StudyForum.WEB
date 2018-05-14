@@ -10,6 +10,6 @@ namespace StudyForum.WEB.ViewModels
         public Guid Id { get; set; }
         public string FullName { get; set; }
         public string Role { get; set; }
-        public string AvatarFilePath { get; set; }
+        //public string AvatarFilePath { get; set; }
     }
 }

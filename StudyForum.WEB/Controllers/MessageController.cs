@@ -32,7 +32,7 @@ namespace StudyForum.WEB.Controllers
                 throw new NotImplementedException();
             }
 
-            var message = Mapper.Map<CreateMessageViewModel, MessageModel>(model);
+            var message = Mapper.Map<CreateMessageViewModel, CreateMessageModel>(model);
             message.AuthorId = User.GetId();
 
             await MessageService.CreateMessageAsync(message);

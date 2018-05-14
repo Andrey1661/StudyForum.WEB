@@ -58,8 +58,14 @@ namespace StudyForum.Entities
         /// </summary>
         public virtual File Avatar { get; set; }
 
+        public Guid? RepositoryId { get; set; }
+
+        public Repository Repository { get; set; }
+
         public virtual ICollection<Theme> Themes { get; set; }
 
         public virtual ICollection<Message> Messages { get; set; }
+
+        public virtual ICollection<File> Files { get; set; }
     }
 }

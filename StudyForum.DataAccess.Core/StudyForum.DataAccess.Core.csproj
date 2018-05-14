@@ -41,31 +41,43 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\Services\IFileService.cs" />
+    <Compile Include="Abstract\Services\IGroupService.cs" />
     <Compile Include="Abstract\Services\IMessageService.cs" />
+    <Compile Include="Abstract\Services\IRepositoryService.cs" />
     <Compile Include="Abstract\Services\IRoleService.cs" />
     <Compile Include="Abstract\Services\ISemesterService.cs" />
+    <Compile Include="Abstract\Services\IServerFileManager.cs" />
     <Compile Include="Abstract\Services\ISubjectService.cs" />
     <Compile Include="Abstract\Services\IThemeService.cs" />
     <Compile Include="Abstract\Services\IUserSevice.cs" />
     <Compile Include="Enviroment\Filters\FileFilter.cs" />
     <Compile Include="Enviroment\Filters\MessageFilter.cs" />
     <Compile Include="Enviroment\Filters\ObjectFilterBase.cs" />
+    <Compile Include="Enviroment\Filters\RepositoryFileFilter.cs" />
+    <Compile Include="Enviroment\Filters\RepositoryFilter.cs" />
     <Compile Include="Enviroment\Filters\SemesterFilter.cs" />
     <Compile Include="Enviroment\Filters\ThemeFilter.cs" />
     <Compile Include="Enviroment\Filters\UserFilter.cs" />
-    <Compile Include="Enviroment\ListOptions.cs" />
-    <Compile Include="Enviroment\PagedList.cs" />
     <Compile Include="Models\AuthorModel.cs" />
+    <Compile Include="Models\CreateMessageModel.cs" />
     <Compile Include="Models\CreateUserModel.cs" />
     <Compile Include="Models\FileModel.cs" />
+    <Compile Include="Models\GroupModel.cs" />
     <Compile Include="Models\MessageModel.cs" />
+    <Compile Include="Models\RepositoryModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\SemesterModel.cs" />
     <Compile Include="Models\SubjectModel.cs" />
     <Compile Include="Models\ThemeModel.cs" />
+    <Compile Include="Models\UploadFileModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Pagination\Pagination.csproj">
+      <Project>{32b4943f-51d7-4718-8c00-35f6a045add8}</Project>
+      <Name>Pagination</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

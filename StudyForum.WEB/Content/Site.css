@@ -1,11 +1,4 @@
 ﻿
-@font-face {
-    font-family: 'LogoMain';
-    src: url(../fonts/logo-font.ttf);
-    font-weight: normal;
-    font-style: normal;
-}
-
 body {
     padding-top: 50px;
 }
@@ -17,6 +10,10 @@ body {
 .navbar-logo {
     font-family: LogoMain;
     font-size: 32px !important;
+}
+
+.navbar-logo:hover {
+    color: initial;
 }
 
 .navbar-avatar {
@@ -32,9 +29,9 @@ body {
     margin-bottom: 0 !important;
 }
 
-    .navbar a {
-        color: black;
-    }
+.navbar a {
+    color: black;
+}
 
 .nav > li > a:hover,
 .nav > li > a:focus {
@@ -55,23 +52,12 @@ body {
     left: 30px;
 }
 
-.profile-avatar {
-}
-
 .container-topics {
     margin-left: 5px;
     margin-right: 5px;
     border: black;
     border-width: 1px;
     margin-top: 30px;
-}
-
-.topics-left-td {
-    
-}
-
-.topics-right-td {
-    
 }
 
 .container-topic {
@@ -88,7 +74,7 @@ body {
     border-color: black;
 }
 
-.ball {
+/*.ball {
     list-style: none;
     margin: 0;
 }
@@ -136,7 +122,7 @@ body {
 
 .ball li:hover:before {
     left: -20px;
-}
+}*/
 
 /*.navbar {
     min-height: 80px;

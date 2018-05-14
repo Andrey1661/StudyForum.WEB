@@ -39,8 +39,14 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
+    <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="SFUTimetableParser">
+      <HintPath>..\..\SFUTimetableParser\SFUTimetableParser.Implementation\bin\Debug\SFUTimetableParser.dll</HintPath>
+    </Reference>
+    <Reference Include="SFUTimetableParser.Core">
+      <HintPath>..\..\SFUTimetableParser\SFUTimetableParser.Implementation\bin\Debug\SFUTimetableParser.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -56,16 +62,28 @@
   <ItemGroup>
     <Compile Include="Enviroment\AutomapperDataAccessModule.cs" />
     <Compile Include="Enviroment\NinjectDataAccessModule.cs" />
+    <Compile Include="GroupDbInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\FileService.cs" />
+    <Compile Include="Services\GroupService.cs" />
     <Compile Include="Services\MessageService.cs" />
+    <Compile Include="Services\RepositoryService.cs" />
+    <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\SemesterService.cs" />
+    <Compile Include="Services\ServerFileManager.cs" />
     <Compile Include="Services\ServiceBase.cs" />
     <Compile Include="Services\SubjectService.cs" />
     <Compile Include="Services\ThemeService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Utils\ExpressionExtensions.cs" />
+    <Compile Include="Utils\ListOptionsExtensions.cs" />
+    <Compile Include="Utils\PasswordHash.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Pagination\Pagination.csproj">
+      <Project>{32b4943f-51d7-4718-8c00-35f6a045add8}</Project>
+      <Name>Pagination</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StudyForum.DataAccess.Core\StudyForum.DataAccess.Core.csproj">
       <Project>{5056ec28-4f7f-4be7-b1c7-bd4970769619}</Project>
       <Name>StudyForum.DataAccess.Core</Name>

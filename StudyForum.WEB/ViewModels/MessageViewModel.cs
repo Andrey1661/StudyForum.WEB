@@ -11,5 +11,6 @@ namespace StudyForum.WEB.ViewModels
         public string Content { get; set; }
         public DateTime CreationDate { get; set; }
         public string AuthorName { get; set; }
+        public ICollection<DownloadFileViewModel> AttachedFiles { get; set; }
     }
 }

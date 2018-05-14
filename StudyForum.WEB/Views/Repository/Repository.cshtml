@@ -1,0 +1,32 @@
+﻿@model StudyForum.WEB.ViewModels.RepositoryViewModel
+
+<link rel="stylesheet" href="~/Content/Styles/Files.css"/>
+
+
+
+<div class="central-content">
+    <div class="row" style="margin-left: 20px">
+            @foreach (var file in Model.Files)
+            {
+                <div class="row file-block">
+                    @Html.ActionLink(file.Name, "DownloadFile", "File", new { fileId = file.Id }, null)
+                    <span>@file.ContentLength</span>
+                    @*<span>@file.Author.FullName</span>*@
+                    <span>@file.UploadDate</span>
+                </div>
+            }
+    </div>
+    <div class="row" style="margin-left: 20px">
+        @using (Html.BeginForm("UploadFile", "Repository", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.Hidden("repositoryId", Model.Id)
+
+            <label class="inputFileWrapper">
+                Зарузить файл
+                <input type="file" name="file"/>
+            </label>
+            <input type="submit" class="btn btn-link" value="Отпрвить"/>
+        }
+    </div>
+</div>
+

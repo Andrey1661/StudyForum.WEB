@@ -1,0 +1,9 @@
+﻿@model StudyForum.DataAccess.Core.Enviroment.PagedList<StudyForum.DataAccess.Core.Models.FileModel>
+
+<ul>
+    @foreach (var file in Model)
+    {
+        <li>@Html.ActionLink(file.Name, "DownloadFile", new {fileId = file.Id})</li>
+    }
+</ul>
+

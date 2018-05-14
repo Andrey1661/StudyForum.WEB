@@ -39,6 +39,13 @@ namespace StudyForum.Db.EF.EntityConfigurations
                 .WithRequired(t => t.Author)
                 .HasForeignKey(t => t.AuthorId)
                 .WillCascadeOnDelete(false);
+            HasMany(t => t.Files)
+                .WithRequired(t => t.Uploader)
+                .HasForeignKey(t => t.UploaderId);
+            HasOptional(t => t.Repository)
+                .WithMany()
+                .HasForeignKey(t => t.RepositoryId)
+                .WillCascadeOnDelete(false);
         }
     }
 }

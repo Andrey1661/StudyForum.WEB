@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Pagination;
 using StudyForum.DataAccess.Core.Abstract.Services;
 using StudyForum.DataAccess.Core.Enviroment;
 using StudyForum.DataAccess.Core.Enviroment.Filters;
@@ -18,18 +19,28 @@ namespace StudyForum.DataAccess.Services
 {
     public class MessageService : ServiceBase, IMessageService
     {
-        public MessageService(ApplicationDbContext context, IMapper mapper) : base(context, mapper)
+        public IFileService FileService { get; }
+
+        public MessageService(ApplicationDbContext context, IMapper mapper, IFileService fileService) : base(context, mapper)
         {
+            FileService = fileService;
         }
 
-        public async Task<Guid> CreateMessageAsync(MessageModel model)
+        public async Task<Guid> CreateMessageAsync(CreateMessageModel model)
         {
-            var message = Mapper.Map<MessageModel, Message>(model);
+            var message = Mapper.Map<CreateMessageModel, Message>(model);
             message.Id = Guid.NewGuid();
             message.CreationDate = DateTime.Now;
 
+            foreach (var attachedFile in model.AttachedFiles)
+            {
+                attachedFile.UploaderId = model.AuthorId;
+            }
+
             Context.Messages.Add(message);
             await Context.SaveChangesAsync();
+            await FileService.SaveMessageFilesAsync(message.Id, model.AttachedFiles);
+
             return message.Id;
         }
 
@@ -38,7 +49,7 @@ namespace StudyForum.DataAccess.Services
             var message = await Context.Messages
                 .Include(m => m.Author)
                 .Include(m => m.Files.Select(f => f.File))
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(m => m.Id == messageId);
             return message == null ? null : Mapper.Map<Message, MessageModel>(message);
         }
 
@@ -60,7 +71,7 @@ namespace StudyForum.DataAccess.Services
             {
                 list.Page = listOptions.Page;
                 list.PageSize = listOptions.PageSize;
-                query = query.Skip(listOptions.Offset).Take(listOptions.PageSize);
+                query = query.OrderByDescending(t => t.CreationDate).Skip(listOptions.Offset).Take(listOptions.PageSize);
             }
 
             query = query.Where(m => m.ParentMessageId == parentMessageId);
@@ -87,7 +98,7 @@ namespace StudyForum.DataAccess.Services
             {
                 list.Page = listOptions.Page;
                 list.PageSize = listOptions.PageSize;
-                query = query.Skip(listOptions.Offset).Take(listOptions.PageSize);
+                query = query.OrderByDescending(t => t.CreationDate).Skip(listOptions.Offset).Take(listOptions.PageSize);
             }
 
             if (filter != null)
@@ -119,8 +130,10 @@ namespace StudyForum.DataAccess.Services
         public async Task<PagedList<MessageModel>> GetThemeMessagesAsync(Guid themeId, ListOptions listOptions)
         {
             var query = Context.Messages.Include(m => m.Author).Include(m => m.Files).AsQueryable();
-            var list = new PagedList<MessageModel>();
-            list.TotalItemCount = await Context.Messages.CountAsync(m => m.ThemeId == themeId);
+            var list = new PagedList<MessageModel>
+            {
+                TotalItemCount = await Context.Messages.CountAsync(m => m.ThemeId == themeId)
+            };
 
             if (list.TotalItemCount == 0) return list;
 
@@ -128,7 +141,7 @@ namespace StudyForum.DataAccess.Services
             {
                 list.Page = listOptions.Page;
                 list.PageSize = listOptions.PageSize;
-                query = query.Skip(listOptions.Offset).Take(listOptions.PageSize);
+                query = query.OrderByDescending(t => t.CreationDate).Skip(listOptions.Offset).Take(listOptions.PageSize);
             }
 
             query = query.Where(m => m.ThemeId == themeId);

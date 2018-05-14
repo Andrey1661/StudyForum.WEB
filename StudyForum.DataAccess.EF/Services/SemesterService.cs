@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Threading.Tasks;
 using AutoMapper;
+using Pagination;
 using StudyForum.DataAccess.Core.Abstract.Services;
 using StudyForum.DataAccess.Core.Enviroment;
 using StudyForum.DataAccess.Core.Enviroment.Filters;

@@ -1,29 +1,26 @@
 ﻿@model StudyForum.WEB.ViewModels.CreateThemeViewModel
 
-<!DOCTYPE html>
+<title>CreateTheme</title>
+    
+<script type="text/javascript" src="~/Scripts/site/Message.js"></script>
+<link rel="stylesheet" href="~/Content/Styles/Files.css"/>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>CreateTheme</title>
-</head>
-<body>
-<div class="col-md-12">
-    @using (Html.BeginForm("Create", "Theme", FormMethod.Post))
+<div class="row" style="margin-top: 20px">
+    @using (Html.BeginForm("Create", "Theme", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.HiddenFor(t => t.SubjectId)
 
         <div class="form-group">
-            @Html.TextBoxFor(t => t.Title, new {@class = "form-control"})
+            @Html.Label("Название темы")
+            @Html.TextBoxFor(t => t.Title, new { @class = "form-control" })
         </div>
         <div class="form-group">
-            @Html.TextAreaFor(t => t.Description, new {@class = "form-control"})
+            @Html.Label("Введите текст сообщения")
+            @Html.TextArea("Content", new {@class = "form-control", style = "width: 50%; height: 100px; max-width: inherit; resize: none;"})
         </div>
-        <div>
-            <input type="submit" value="Создать" class="btn btn-success">
-        </div>
+        <div id="fileTagsContainer"></div>
+        <div id="filesContainer"></div>
+
+        <input type="submit" value="Создать тему" class="btn btn-success">
     }
 </div>
-
-</body>
-</html>

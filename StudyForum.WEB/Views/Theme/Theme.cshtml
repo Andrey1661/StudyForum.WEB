@@ -12,9 +12,6 @@
                     <div class="panel-heading">
                         <h4><a href="#">@Model.Title</a></h4>
                     </div>
-                    <div class="panel-body">
-                        <span>@Model.Description</span>
-                    </div>
                     <div class="panel-footer">
                         <h6>@Model.CreationDate.ToString("g")</h6>
                     </div>
@@ -40,7 +37,12 @@
                                 <span>@message.CreationDate.ToString("g")</span>
                                 @*<button id=@message.Id class="btn btn-success btn-sm pull-right">Ответить</button>*@
                             </div>
-
+                            <div>
+                                @foreach (var file in message.AttachedFiles)
+                                {
+                                    @Html.ActionLink(file.Name, "DownloadFile", "File", new { fileId = file.Id }, new {@class = "fileTagContainer"})
+                                }
+                            </div>
                         </li>
                     }
                 </ul>
@@ -48,17 +50,5 @@
         </div>
     </div>
     
-    <div class="row">
-        <div class="col-md-12">
-            @using (Html.BeginForm("Create", "Message", FormMethod.Post))
-            {
-                @Html.Hidden("ThemeId", Model.Id)
-
-                <div class="form-group">
-                    @Html.TextArea("Content", new {@class = "form-control", style = "width: 50%; height: 100px; max-width: inherit; resize: none;"})
-                </div>
-                <input type="submit" value="Добавить комментарий", class="btn btn-success"/>
-            }
-        </div>
-    </div>
+    @Html.Partial("_CreateMessage", new ViewDataDictionary{ { "ThemeId", Model.Id } })
 </div>

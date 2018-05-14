@@ -33,7 +33,7 @@ namespace StudyForum.WEB.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> SignIn(SignInViewModel model)
+        public async Task<ActionResult> SignIn(SignInViewModel model, string returnUrl = null)
         {
             var user = await UserService.GetUserAsync(model.Email, model.Password);
 
@@ -45,8 +45,8 @@ namespace StudyForum.WEB.Controllers
 
             SignInManager.SignIn(user, model.IsPersistent);
 
-            if (!string.IsNullOrEmpty(model.ReturnUrl))
-                return Redirect(model.ReturnUrl);
+            if (!string.IsNullOrEmpty(returnUrl))
+                return Redirect(returnUrl);
 
             return RedirectToAction("Index", "Home");
         }

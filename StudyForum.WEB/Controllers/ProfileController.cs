@@ -21,19 +21,22 @@ namespace StudyForum.WEB.Controllers
         private ISubjectService SubjectService { get; }
         private IThemeService ThemeService { get; }
         private ISemesterService SemesterService { get; }
+        private IGroupService GroupService { get; }
 
         public ProfileController(
+            IMapper mapper, 
             IUserSevice userService, 
             ISubjectService subjectService, 
             IThemeService themeService, 
             ISemesterService semesterService, 
-            IMapper mapper)
+            IGroupService groupService)
         {
+            Mapper = mapper;
             UserService = userService;
             SubjectService = subjectService;
             ThemeService = themeService;
             SemesterService = semesterService;
-            Mapper = mapper;
+            GroupService = groupService;
         }
 
         [Authorize]
@@ -47,11 +50,19 @@ namespace StudyForum.WEB.Controllers
             }
 
             var semester = await SemesterService.GetCurrentSemesterAsync();
-            var subjects = await SubjectService.GetSubjectsAsync(user.GroupId.Value, semester.Id);
-            var themes = await ThemeService.GetThemesAsync(new ThemeFilter {AuthorId = user.Id}, new ListOptions());
+            var themes = await ThemeService.GetThemesAsync(new ThemeFilter {AuthorId = user.Id});
 
             var model = Mapper.Map<UserModel, ProfileViewModel>(user);
-            model.Subjects = Mapper.Map<PagedList<SubjectModel>, PagedList<SubjectViewModel>>(subjects);
+
+            if (user.GroupId.HasValue)
+            {
+                var subjects = await SubjectService.GetSubjectsAsync(user.GroupId.Value, semester.Id);
+                var group = await GroupService.GetGroupAsync(user.GroupId.Value);
+
+                model.Subjects = Mapper.Map<PagedList<SubjectModel>, PagedList<SubjectViewModel>>(subjects);
+                model.Group = Mapper.Map<GroupModel, GroupViewModel>(group);
+            }
+
             model.Themes = Mapper.Map<PagedList<ThemeModel>, PagedList<ThemeViewModel>>(themes);
 
             return View(model);

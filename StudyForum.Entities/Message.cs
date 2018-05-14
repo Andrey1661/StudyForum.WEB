@@ -53,10 +53,19 @@ namespace StudyForum.Entities
         /// </summary>
         public virtual ICollection<Message> ChildMessages { get; set; }
 
+        /// <summary>
+        /// Коллекция ссылок на прикрепленные файлы
+        /// </summary>
         public virtual ICollection<MessageFile> Files { get; set; }
 
+        /// <summary>
+        ///  Id темы
+        /// </summary>
         public Guid ThemeId { get; set; }
 
+        /// <summary>
+        /// Ссылка на тему
+        /// </summary>
         public virtual Theme Theme { get; set; }
     }
 }

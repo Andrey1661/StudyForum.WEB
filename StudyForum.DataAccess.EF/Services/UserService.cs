@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Pagination;
 using StudyForum.DataAccess.Core.Abstract.Services;
 using StudyForum.DataAccess.Core.Enviroment;
 using StudyForum.DataAccess.Core.Enviroment.Filters;
@@ -18,23 +19,39 @@ namespace StudyForum.DataAccess.Services
 {
     public class UserService : ServiceBase, IUserSevice
     {
-        public UserService(ApplicationDbContext context, IMapper mapper) : base(context, mapper)
+        private IFileService FileService { get; }
+
+        public UserService(ApplicationDbContext context, IMapper mapper, IFileService fileService) : base(context, mapper)
         {
+            FileService = fileService;
         }
 
-        public async Task<Guid> CreateUserAsync(CreateUserModel user)
+        public async Task<Guid> CreateUserAsync(CreateUserModel user, string roleName = "user")
         {
             var newUser = Mapper.Map<CreateUserModel, User>(user);
-            var role = await Context.Roles.FirstOrDefaultAsync(t => t.Name == "User");
+            var role = await Context.Roles.FirstOrDefaultAsync(t => t.Name.ToLower() == roleName);
+
+            var hash = new PasswordHash(user.Password);
 
             Guid id = Guid.NewGuid();
             newUser.Id = id;
             newUser.Identity.Id = id;
             newUser.Identity.RoleId = role.Id;
             newUser.Identity.RegistrationDate = DateTime.Now;
-            newUser.GroupId = null;
+            newUser.Identity.PasswordHash = Encoding.Default.GetString(hash.ToArray());
+            newUser.GroupId = user.GroupId;
+
+            var repository = new Repository
+            {
+                Id = Guid.NewGuid(),
+                OwnerType = 1,
+                OwnerId = id,
+                Shared = false
+            };
+            newUser.RepositoryId = repository.Id;
 
             Context.Users.Add(newUser);
+            Context.Repositories.Add(repository);
             int res = await Context.SaveChangesAsync();
             return res > 0 ? newUser.Id : Guid.Empty;
         }
@@ -44,9 +61,22 @@ namespace StudyForum.DataAccess.Services
             var user =
                 await Context.Users
                     .Include(u => u.Identity.Role)
-                    .FirstOrDefaultAsync(t => t.Identity.Email.Equals(login) && t.Identity.PasswordHash.Equals(password));
+                    .FirstOrDefaultAsync(t => t.Identity.Email.Equals(login));
 
-            return user == null ? null : Mapper.Map<User, UserModel>(user);
+            if (user == null) return null;
+
+            var bytes = Encoding.Default.GetBytes(user.Identity.PasswordHash);
+            var hash = new PasswordHash(bytes);
+            if (!hash.Verify(password)) return null;
+
+            var model = Mapper.Map<User, UserModel>(user);
+
+            if (model != null && user.AvatarId != null)
+            {
+                model.AvatarFilePath = await FileService.GetFilePathAsync(user.AvatarId.Value);
+            }
+
+            return model;
         }
 
         public async Task<UserModel> GetUserByIdAsync(Guid userId)
@@ -86,24 +116,20 @@ namespace StudyForum.DataAccess.Services
                         predicate.AndAlso(u => $"{u.SecondName} {u.FirstName} {u.Patronymic}".Contains(filter.NameQuery));
             }
 
-            var result = new PagedList<UserModel>();
+            int totalItemCount;
 
             if (predicate != null)
             {
                 users = users.Where(predicate);
-                result.TotalItemCount = await Context.Users.CountAsync(predicate);
+                totalItemCount = await Context.Users.CountAsync(predicate);
             }
             else
             {
-                result.TotalItemCount = await Context.Users.CountAsync();
+                totalItemCount = await Context.Users.CountAsync();
             }
 
-            if (listOptions != null)
-            {
-                users = users.Skip(listOptions.Offset).Take(listOptions.PageSize);
-                result.Page = listOptions.Page;
-                result.PageSize = listOptions.PageSize;
-            }
+            var result = listOptions.CreatePagedList<UserModel>(totalItemCount);
+            users = listOptions.TakeFrom(users);
 
             var userList = await users.ToListAsync();
             result.AddRange(Mapper.Map<IEnumerable<User>, IEnumerable<UserModel>>(userList));

@@ -41,6 +41,8 @@ namespace StudyForum.Db.EF
         public DbSet<User> Users { get; set; }
         public DbSet<UserIdentity> Identities { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Repository> Repositories { get; set; }
+        public DbSet<RepositoryFile> RepositoryFiles { get; set; }
 
         public DbSqlQuery<Subject> SelectSubjectByGroupAndSemester(Guid groupId, Guid semesterId)
         {

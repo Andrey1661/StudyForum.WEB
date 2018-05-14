@@ -22,13 +22,14 @@ namespace StudyForum.Entities
         /// </summary>
         public string Name { get; set; }
 
-        public string Description { get; set; }
-
         /// <summary>
         /// Коллекция ссылок на пользователей, взодящих в группу
         /// </summary>
         public virtual ICollection<User> Users { get; set; }
 
+        /// <summary>
+        /// Коллекция ссылок на семестры
+        /// </summary>
         public virtual ICollection<GroupSemester> Semesters { get; set; }
     }
 }

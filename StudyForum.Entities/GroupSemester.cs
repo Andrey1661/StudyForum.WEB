@@ -14,5 +14,7 @@ namespace StudyForum.Entities
         public virtual Group Group { get; set; }
         public virtual Semester Semester { get; set; }
         public virtual ICollection<GroupSemesterSubject> Subjects { get; set; }
+        public Guid? RepositoryId { get; set; }
+        public virtual Repository Repository { get; set; }
     }
 }

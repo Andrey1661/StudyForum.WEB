@@ -34,5 +34,21 @@ namespace StudyForum.WEB.Utils
 
             return Guid.Empty;
         }
+
+        public static string GetClaim(this IPrincipal principal, string key)
+        {
+            if (principal?.Identity != null)
+            {
+                var claim = principal.GetClaimsIdentity().Claims
+                    .FirstOrDefault(c => c.Type == key);
+
+                if (claim != null)
+                {
+                    return claim.Value;
+                }
+            }
+
+            return String.Empty;
+        }
     }
 }

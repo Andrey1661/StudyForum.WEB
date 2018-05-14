@@ -42,11 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="File.cs" />
+    <Compile Include="Repository.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="GroupSemester.cs" />
     <Compile Include="GroupSemesterSubject.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageFile.cs" />
+    <Compile Include="RepositoryFile.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Semester.cs" />
     <Compile Include="Subject.cs" />

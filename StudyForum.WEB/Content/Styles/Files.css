@@ -1,0 +1,81 @@
+﻿.inputFileWrapper {
+    color: #337ab7;
+    text-decoration: none;
+    overflow: hidden;
+    position: relative;
+    display: block;
+}
+
+.inputFileWrapper [type=file] {
+    cursor: inherit;
+    display: block;
+    font-size: 999px;
+    filter: alpha(opacity=0);
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
+}
+
+.inputFileWrapper:hover {
+    color: #23527c;
+    text-decoration: underline;
+}
+
+.inputFileWrapper [type=file] {
+    cursor: pointer;
+}
+
+.fileTagContainer {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    border: 2px solid #23527c;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.fileTagContainer:hover {
+    background: lightcoral;
+    border-color: red;
+}
+
+.fileTagName {
+    color: #337ab7;
+    margin: 5px;
+}
+
+.fileTagSize {
+    color: grey;
+    margin: 3px;
+}
+
+.close-cross {
+    position: relative;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    overflow: hidden;
+}
+
+.close-cross::before, .close-cross::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    background: #000;
+}
+
+.close-cross::before {
+    transform: rotate(45deg);
+}
+
+.close-cross::after {
+    transform: rotate(-45deg);
+}

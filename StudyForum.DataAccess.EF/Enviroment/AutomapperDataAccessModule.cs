@@ -20,11 +20,11 @@ namespace StudyForum.DataAccess.Enviroment
 
             CreateMap<CreateUserModel, User>()
                 .ForMember(dest => dest.Identity,
-                    opt => opt.MapFrom(t => new UserIdentity {Email = t.Email, PasswordHash = t.Password}));
+                    opt => opt.MapFrom(t => new UserIdentity {Email = t.Email}));
 
             CreateMap<Theme, ThemeModel>();
 
-            CreateMap<MessageModel, Message>();
+            CreateMap<CreateMessageModel, Message>();
             CreateMap<Message, MessageModel>()
                 .ForMember(dest => dest.AttachedFiles, opt => opt.MapFrom(src => src.Files.Select(f => f.File)));
 
@@ -39,6 +39,10 @@ namespace StudyForum.DataAccess.Enviroment
                 .ForMember(dest => dest.FullName,
                     opt => opt.MapFrom(src => $"{src.SecondName} {src.FirstName} {src.Patronymic}".Trim()))
                 .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Identity.Role));
+
+            CreateMap<File, FileModel>().ForMember(dst => dst.Name, opt => opt.MapFrom(src => src.FileName));
+            CreateMap<Repository, RepositoryModel>()
+                .ForMember(dest => dest.Files, opt => opt.MapFrom(src => src.Files.Select(f => f.File)));
         }
     }
 }

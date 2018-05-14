@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Web.Http;
 
 namespace StudyForum.WEB
@@ -15,10 +16,29 @@ namespace StudyForum.WEB
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
+                name: "SignIn",
+                routeTemplate: "api/AccountApi/SignIn"
+                );
+
+            config.Routes.MapHttpRoute(
+                name: "GroupList",
+                routeTemplate: "api/Groups/{id}",
+                defaults: new {controller = "AccountApi", action = "GetGroupList", id = RouteParameter.Optional}
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "ActionApi",
+                routeTemplate: "api/{controller}/{action}"
+                //defaults: new {controller = "RepositoryApi", action = "GetFiles"}
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
         }
     }
 }

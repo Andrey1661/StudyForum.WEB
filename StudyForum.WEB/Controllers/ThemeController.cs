@@ -59,8 +59,18 @@ namespace StudyForum.WEB.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(CreateThemeViewModel model)
         {
-            var themeId =
-                await ThemeService.CreateThemeAsync(model.SubjectId, User.GetId(), model.Title, model.Description);
+            var themeId = await ThemeService.CreateThemeAsync(model.SubjectId, User.GetId(), model.Title);
+            var message = new CreateMessageModel
+            {
+                ThemeId = themeId,
+                AuthorId = User.GetId(),
+                Content = model.Content,
+                AttachedFiles =
+                    Mapper.Map<ICollection<HttpPostedFileBase>, ICollection<UploadFileModel>>(model.AttachedFiles)
+            };
+
+            await MessageService.CreateMessageAsync(message);
+
             return RedirectToAction("Theme", new {themeId});
         }
     }

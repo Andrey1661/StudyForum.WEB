@@ -14,6 +14,12 @@ namespace StudyForum.WEB
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "CreateTheme",
+                url: "CreateTheme/{subjectId}",
+                defaults: new { controller = "Theme", action = "Create" }
+            );
+
+            routes.MapRoute(
                 name: "Theme",
                 url: "Theme/{themeId}",
                 defaults: new {controller = "Theme", action = "Theme"}
@@ -28,7 +34,7 @@ namespace StudyForum.WEB
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new {controller = "Profile", action = "Index", id = UrlParameter.Optional}
+                defaults: new {controller = "Home", action = "Index", id = UrlParameter.Optional}
             );
         }
     }

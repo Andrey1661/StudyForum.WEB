@@ -13,7 +13,7 @@ namespace StudyForum.Db.EF.EntityConfigurations
         public SubjectConfiguration()
         {
             HasKey(t => t.Id);
-            Property(t => t.Name).IsRequired().HasMaxLength(100);
+            Property(t => t.Name).IsRequired().HasMaxLength(250);
             HasMany(t => t.GroupSemesters)
                 .WithRequired(t => t.Subject)
                 .HasForeignKey(t => t.SubjectId)

@@ -21,6 +21,9 @@ namespace StudyForum.Db.EF.EntityConfigurations
                 .WithRequired(t => t.GroupSemester)
                 .HasForeignKey(t => t.GroupSemesterId)
                 .WillCascadeOnDelete(true);
+            HasOptional(t => t.Repository)
+                .WithMany()
+                .HasForeignKey(t => t.RepositoryId);
         }
     }
 }

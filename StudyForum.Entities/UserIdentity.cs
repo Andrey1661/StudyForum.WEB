@@ -50,8 +50,7 @@ namespace StudyForum.Entities
 
         /// <summary>
         /// Внешний ключ на роль пользователя (<see cref="Role"/>)
-        /// </summary>
-        
+        /// </summary>    
         public virtual Guid RoleId { get; set; }
 
         /// <summary>

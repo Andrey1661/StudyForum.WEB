@@ -14,7 +14,7 @@ namespace StudyForum.Db.EF.EntityConfigurations
         public FileConfiguration()
         {
             HasKey(t => t.Id);
-            Property(t => t.PhysicalPath)
+            Property(t => t.FileName)
                 .IsRequired()
                 .HasMaxLength(200);
             HasMany(t => t.Messages)
@@ -25,6 +25,12 @@ namespace StudyForum.Db.EF.EntityConfigurations
                 .WithRequired(t => t.File)
                 .HasForeignKey(t => t.FileId)
                 .WillCascadeOnDelete(true);
+            HasMany(t => t.Repositories)
+                .WithRequired(t => t.File)
+                .HasForeignKey(t => t.FileId);
+            HasRequired(t => t.Uploader)
+                .WithMany()
+                .HasForeignKey(t => t.UploaderId);
         }
     }
 }

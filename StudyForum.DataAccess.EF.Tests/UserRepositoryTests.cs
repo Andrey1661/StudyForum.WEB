@@ -14,7 +14,7 @@ namespace StudyForum.DataAccess.EF.Tests
         {
             var context = new ApplicationDbContext();
             var mapper = TestUtils.CreateMapper();
-            var userService = new UserService(context, mapper);
+            /var userService = new UserService(context, mapper);
             var userModel = new CreateUserModel
             {
                 Email = "user@test.ru",

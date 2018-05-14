@@ -1,35 +1,52 @@
-﻿@model StudyForum.WEB.ViewModels.ProfileViewModel
+﻿@using StudyForum.WEB.Utils
+@model StudyForum.WEB.ViewModels.ProfileViewModel
 
 @{
     ViewBag.Title = "Profile";
 }
 
-<div class="container-profile">
-    <img src="~/Content/Img/user.png" class="img-responsive img-thumbnail" alt="user">
-    <h4 style="margin-left: 10px;">@Model.FullName</h4>
-    <h4 style="margin-left: 10px;">@Model.Email</h4>
-    @Html.ActionLink("Выйти", "SignOut", "Account")
-
-    <div class="row">
-        
-        <div class="col-md-12">
-            <div class="col-md-6">
-                <h3>Мои темы:</h3>
-                <ol class="ball">
-                    @foreach (var theme in Model.Themes)
-                    {
-                        <li><a href="#">@theme.Title</a></li>
-                    }
-                </ol>
+<div class="central-content">
+    <div class="row">   
+        <div class="col-md-6">
+            <div style="margin: 20px;">
+                <h4>@Model.FullName</h4>
+                <h4>@Model.Email</h4>
             </div>
-            <div class="col-md-6">
-                <h3>Мои предметы:</h3>
-                <ol class="ball">
-                    @foreach (var subject in Model.Subjects)
-                    {
-                        <li>@Html.ActionLink(subject.Name, "Themes", "Theme", new {subjectId = subject.Id}, null)</li>
-                    }
-                </ol>
+            
+            <div style="margin: 20px;">
+                @Html.ActionLink("Мой репозиторий", "UserRepository", "Repository", null, new { style = "font-size: 16px;" })
+            </div>
+            
+            @if (Model.Group != null)
+            {
+                <div style="margin: 20px;">
+                    @Html.ActionLink(Model.Group.Name, "", "", new {groupId = Model.Group.Id}, new { style = "font-size: 16px;" })
+                </div>
+            }
+
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="bordered" style="margin: 10px; margin-right: 15px">
+                    <h4>Мои темы:</h4>
+                    <ol>
+                        @foreach (var theme in Model.Themes)
+                        {
+                            <li>@Html.ActionLink(theme.Title, "Theme", "Theme", new {themeId = theme.Id}, null)</li>
+                        }
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="bordered" style="margin: 10px; margin-right: 15px">
+                    <h4>Мои предметы:</h4>
+                    <ol>
+                        @foreach (var subject in Model.Subjects)
+                        {
+                            <li>@Html.ActionLink(subject.Name, "Themes", "Theme", new {subjectId = subject.Id}, null)</li>
+                        }
+                    </ol>
+                </div>
             </div>
         </div>
     </div>

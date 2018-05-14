@@ -18,14 +18,21 @@ namespace StudyForum.Entities
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Физический путь к файлу
+        /// Имя файла
         /// </summary>
-        public string PhysicalPath { get; set; }
+        [MaxLength(100)]
+        public string FileName { get; set; }
 
         /// <summary>
-        /// Определяет, может ли файл храниться самостоятельно, т.е. без привязки к сообщению или теме
+        /// Тип файла
         /// </summary>
-        public bool IsIndependent { get; set; }
+        [MaxLength(200)]
+        public string FileType { get; set; }
+
+        /// <summary>
+        /// Размер файла
+        /// </summary>
+        public int ContentLength { get; set; }
 
         /// <summary>
         /// Коллекция ссылок на темы, к которым привязан файл
@@ -36,5 +43,25 @@ namespace StudyForum.Entities
         /// Коллекция ссылок на сообщения, к которым привязан файл
         /// </summary>
         public virtual ICollection<MessageFile> Messages { get; set; }
+
+        /// <summary>
+        /// Коллекция ссылок на репозитории, к которым привязан файл
+        /// </summary>
+        public virtual ICollection<RepositoryFile> Repositories { get; set; }
+
+        /// <summary>
+        /// Дата загрузки
+        /// </summary>
+        public DateTime UploadDate { get; set; }
+
+        /// <summary>
+        /// Id пользователя, загрузившего файл
+        /// </summary>
+        public Guid UploaderId { get; set; }
+
+        /// <summary>
+        /// Ссылка на пользователя, загрузившего файл
+        /// </summary>
+        public virtual User Uploader { get; set; }
     }
 }

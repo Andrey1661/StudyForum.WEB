@@ -1,0 +1,28 @@
+﻿@model Guid
+
+<script type="text/javascript" src="~/Scripts/site/Repository.js"></script>
+<link rel="stylesheet" href="~/Content/Styles/Common.css"/>
+
+<div class="rep-side bordered">
+    
+    <h3>@Html.ActionLink("Ваш репозиторий", "UserRepository", "Repository")</h3>
+    
+    <div>
+        @using (Ajax.BeginForm("GetRepositoryFiles", "Repository", new AjaxOptions
+        {
+            HttpMethod = "POST",
+            OnSuccess = "indertFiles"
+        }))
+        {
+            @Html.Hidden("repositoryId", Model)
+
+            <div class="search-block">
+                <input type="text" name="SearchString">
+                <input type="submit" class="glyphicon glyphicon-search" />
+            </div>
+            <div>
+                <ul id="side-rep-files"></ul>
+            </div>
+        }
+    </div>
+</div>

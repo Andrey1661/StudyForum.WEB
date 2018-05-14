@@ -16,16 +16,20 @@ namespace StudyForum.WEB
             CreateMap<ThemeModel, ThemeViewModel>();
             CreateMap<SubjectModel, SubjectViewModel>();
             CreateMap<UserModel, ProfileViewModel>()
-                .ForMember(dest => dest.FullName,
+                .ForMember(dst => dst.FullName,
                     opt => opt.MapFrom(src => $"{src.SecondName} {src.FirstName} {src.Patronymic}".Trim()));
             CreateMap<ThemeModel, ThemeViewModel>();
             CreateMap<MessageModel, MessageViewModel>()
-                .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(src => src.Author.FullName));
+                .ForMember(dst => dst.AuthorName, opt => opt.MapFrom(src => src.Author.FullName));
             CreateMap<AuthorModel, AuthorViewModel>()
-                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.Name))
-                .ForMember(dest => dest.AvatarFilePath, opt => opt.MapFrom(src => src.AvatarFile.PhysicalPath));
-            CreateMap<CreateMessageViewModel, MessageModel>()
-                .ForMember(dest => dest.AttachedFiles, opt => opt.Ignore());
+                .ForMember(dst => dst.Role, opt => opt.MapFrom(src => src.Role.Name));
+            CreateMap<CreateMessageViewModel, CreateMessageModel>();
+            CreateMap<HttpPostedFileBase, UploadFileModel>()
+                .ForMember(dst => dst.FileStream, opt => opt.MapFrom(src => src.InputStream))
+                .ForMember(dst => dst.FileType, opt => opt.MapFrom(src => src.ContentType))
+                .ForMember(dst => dst.ContentLength, opt => opt.MapFrom(src => src.ContentLength));
+            CreateMap<RepositoryModel, RepositoryViewModel>();
+            CreateMap<FileModel, ExtendedFileViewModel>();
         }
     }
 }

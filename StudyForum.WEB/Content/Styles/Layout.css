@@ -1,0 +1,60 @@
+﻿
+@font-face {
+    font-family: 'LogoMain';
+    src: url(~/fonts/logo-font.ttf);
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    padding-top: 50px;
+}
+
+input {
+    max-width: 300px;
+}
+
+.fill-background {
+    background: url(~/Content/Img/bg.png) repeat;
+}
+
+.navbar-logo {
+    font-family: LogoMain;
+    font-size: 32px !important;
+}
+
+.navbar-logo:hover {
+    color: initial;
+}
+
+.navbar-avatar {
+    max-height: 40% !important;
+    max-width: 40% !important;
+    margin-top: 4px;
+}
+
+.navbar-user {
+    padding-top: 12px;
+    font-size: 18px !important;
+    color: black !important;
+}
+
+.navbar {
+    background: linear-gradient(to right, rgb(0, 105, 92), rgb(77, 182, 172));
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-bottom: 0 !important;
+}
+
+.navbar a {
+    color: black;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+    background-color: initial !important;
+}
+
+.nav > li > a:active {
+    background-color: initial;
+}

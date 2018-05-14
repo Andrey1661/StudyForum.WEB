@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Pagination;
 using StudyForum.DataAccess.Core.Abstract.Services;
 using StudyForum.DataAccess.Core.Enviroment;
 using StudyForum.DataAccess.Core.Enviroment.Filters;
@@ -21,7 +22,7 @@ namespace StudyForum.DataAccess.Services
         {
         }
 
-        public async Task<Guid> CreateThemeAsync(Guid subjectId, Guid authorId, string title, string description = null)
+        public async Task<Guid> CreateThemeAsync(Guid subjectId, Guid authorId, string title)
         {
             var theme = new Theme
             {
@@ -29,7 +30,6 @@ namespace StudyForum.DataAccess.Services
                 CreationDate = DateTime.Now,
                 AuthorId = authorId,
                 Title = title,
-                Description = description,
                 SubjectId = subjectId
             };
 
@@ -80,7 +80,7 @@ namespace StudyForum.DataAccess.Services
 
         public async Task<PagedList<ThemeModel>> GetUserThemesAsync(Guid userId, ListOptions listOptions = null)
         {
-            var themes = Context.Themes.AsQueryable();
+            var themes = Context.Themes.Include(t => t.Author).AsQueryable();
             var result = new PagedList<ThemeModel>();
 
             if (listOptions != null)
@@ -97,7 +97,7 @@ namespace StudyForum.DataAccess.Services
 
         public async Task<PagedList<ThemeModel>> GetThemesForSubjectAsync(Guid subjectId, ListOptions listOptions)
         {
-            var themes = Context.Themes.AsQueryable();
+            var themes = Context.Themes.Include(t => t.Author).AsQueryable();
             var result = new PagedList<ThemeModel>();
 
             if (listOptions != null)
@@ -119,7 +119,7 @@ namespace StudyForum.DataAccess.Services
 
         public async Task<PagedList<ThemeModel>> GetThemesAsync(ThemeFilter filter, ListOptions listOptions)
         {
-            var themes = Context.Themes.AsQueryable();
+            var themes = Context.Themes.Include(t => t.Author).AsQueryable();
 
             if (filter != null)
             {
@@ -127,10 +127,10 @@ namespace StudyForum.DataAccess.Services
                 if (filter.SubjectId.HasValue) themes = themes.Where(t => t.SubjectId == filter.SubjectId);
                 if (filter.CreateDateAfter.HasValue) themes = themes.Where(t => t.CreationDate >= filter.CreateDateAfter);
                 if (filter.CreateDateBefore.HasValue) themes = themes.Where(t => t.CreationDate <= filter.CreateDateBefore);
-                if (string.IsNullOrEmpty(filter.SearchString))
+                if (!string.IsNullOrEmpty(filter.SearchString))
                     themes =
                         themes.Where(
-                            t => t.Title.Contains(filter.SearchString) || t.Description.Contains(filter.SearchString));
+                            t => t.Title.Contains(filter.SearchString));
             }
 
             var result = new PagedList<ThemeModel>();
